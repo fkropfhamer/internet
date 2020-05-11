@@ -14,7 +14,7 @@ function main() {
 
     const ufos = [];
 
-    for(let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
         const x = Math.random() * width;
         const y = Math.random() * height;
         const angle = Math.random() * 2 * Math.PI;
