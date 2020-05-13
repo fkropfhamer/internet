@@ -6,6 +6,7 @@ COPY . /build
 RUN rm -rf /build/public/js
 RUN rm -f /build/public/sw.js
 
+RUN npm ci
 RUN npm run build
 
 
