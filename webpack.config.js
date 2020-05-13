@@ -73,4 +73,28 @@ module.exports = [
       path: path.resolve(__dirname, 'public', 'js'),
     },
   },
+  {
+    entry: './src/serviceworker/app.js',
+    module: {
+      rules: [
+        {
+          test: /\.js/,
+          use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env']
+              }
+          },
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+      extensions: [ '.js' ],
+    },
+    output: {
+      filename: 'app.js',
+      path: path.resolve(__dirname, 'public', 'js'),
+    },
+  }
 ]
