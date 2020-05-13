@@ -4,7 +4,7 @@ WORKDIR /build
 COPY . /build
 
 RUN rm -rf /build/public/js
-RUN rm /build/public/sw.js
+RUN rm -f /build/public/sw.js
 
 RUN npm run build
 
