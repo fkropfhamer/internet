@@ -24,10 +24,10 @@ const filesToCache = [
     // console.log('Fetch event for ', event.request.url);
     event.respondWith(
       caches.match(event.request)
-      .then(response => {
-        if (response) {
+      .then(res => {
+        if (res) {
           // console.log('Found ', event.request.url, ' in cache');
-          return response;
+          return res;
         }
         // console.log('Network request for ', event.request.url);
         return fetch(event.request)
