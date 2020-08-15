@@ -98,7 +98,7 @@ module.exports = [
     },
   },
   {
-    entry: './src/mnist/main.js',
+    entry: ['@babel/polyfill', './src/mnist/main.js'],
     module: {
       rules: [
         {
