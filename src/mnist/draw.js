@@ -1,4 +1,44 @@
+import { chunkArray } from '../util/util';
+
 export default class Draw {
+    /**
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    static getPixelArray(ctx) {
+        const height = ctx.canvas.height;
+        const width = ctx.canvas.width;
+
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const pixels = imageData.data;
+    
+        return pixels;
+    }
+
+    /**
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    static getGreyScalePixelArray(ctx) {
+        const pixels = Draw.getPixelArray(ctx);
+        const greyScalePixels  = pixels.filter((_, i) => (i + 1) % 4 === 0);
+        
+        return greyScalePixels;
+    }
+
+    /**
+     * 
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    static getPixelMatrix(ctx) {
+        const width = ctx.canvas.width;
+    
+        const pixelArray = Draw.getGreyScalePixelArray(ctx);
+        const pixelMatrix = chunkArray(pixelArray, width);
+    
+        return pixelMatrix;
+    }
+
     /**
      * 
      * @param {HTMLElement} element 
@@ -8,7 +48,7 @@ export default class Draw {
      * @param {string | CanvasGradient | CanvasPattern} strokeColor
      * @param {number} strokeWeight
      */
-    constructor(element, width, height, backgroundColor = 'cyan', strokeColor = 'black', strokeWeight = 5) {
+    constructor(element, width, height, backgroundColor = 'cyan', strokeColor = 'black', strokeWeight = 15) {
         this.canvas = document.createElement('canvas');
         this.canvas.width = width;
         this.canvas.height = height;
