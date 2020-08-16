@@ -1,9 +1,19 @@
 import * as tf from '@tensorflow/tfjs';
+import { indexOfMax } from '../util/util';
 
 async function loadModel() {
     const model = await tf.loadLayersModel('models/mnist/model.json');
 
     return model;
+}
+
+async function predict(model, inputTensor) {
+    const reshapedInput = inputTensor.reshape([1, 28, 28, 1]);
+    const prediction = model.predict(reshapedInput);
+    const predictionArray = await prediction.array();
+    const predictedNumber = indexOfMax(predictionArray[0]);
+    
+    return predictedNumber;
 }
 
 async function main() {
@@ -40,34 +50,9 @@ async function main() {
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
     ]);
 
-    const reshapedInput = input.reshape([1, 28, 28, 1]);
-    console.log(reshapedInput.shape);
-    
-    const prediction = model.predict(reshapedInput);
-    const predictionArray = await prediction.array();
+    const predicition = await predict(model, input);
 
-    console.log(predictionArray);
-
-    const predictedNumber = indexOfMax(predictionArray[0]);
-    console.log('predicted', predictedNumber);
-}
-
-function indexOfMax(arr) {
-    if (arr.length === 0) {
-        return -1;
-    }
-
-    let max = arr[0];
-    let maxIndex = 0;
-
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-            maxIndex = i;
-            max = arr[i];
-        }
-    }
-
-    return maxIndex;
+    console.log('predicted', predicition);
 }
 
 main().then(() => console.log("finished"));
