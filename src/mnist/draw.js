@@ -115,6 +115,13 @@ export default class Draw {
         });
     }
 
+    drawLinePoint(point) {
+        this.ctx.beginPath();
+        this.ctx.arc(point.x, point.y, this.ctx.lineWidth / 2, 0, Math.PI * 2, true);
+        this.ctx.closePath(); 
+        this.ctx.fill();
+    }
+
     drawPoints(points) {
         if (points.length === 0) {
             return;
@@ -122,11 +129,7 @@ export default class Draw {
 
         // draw a basic circle instead
         if (points.length < 6) {
-            const b = points[0];
-            this.ctx.beginPath();
-            this.ctx.arc(b.x, b.y, this.ctx.lineWidth / 2, 0, Math.PI * 2, true);
-            this.ctx.closePath(); 
-            this.ctx.fill();
+            this.drawLinePoint(points[0]);
             return
         }
 
@@ -144,5 +147,7 @@ export default class Draw {
 
         this.ctx.quadraticCurveTo(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
         this.ctx.stroke();
+
+        this.drawLinePoint(points[points.length - 1]);
     }
 }
