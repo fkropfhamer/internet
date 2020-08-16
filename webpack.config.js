@@ -96,5 +96,29 @@ module.exports = [
       filename: 'app.js',
       path: path.resolve(__dirname, 'public', 'js'),
     },
+  },
+  {
+    entry: ['@babel/polyfill', './src/mnist/main.js'],
+    module: {
+      rules: [
+        {
+          test: /\.js/,
+          use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env']
+              }
+          },
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+      extensions: [ '.js' ],
+    },
+    output: {
+      filename: 'mnist.js',
+      path: path.resolve(__dirname, 'public', 'js'),
+    },
   }
 ]

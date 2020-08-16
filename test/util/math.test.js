@@ -1,17 +1,22 @@
-import { sum, rotatePointAroundPoint, euklidianDistance2D } from '../src/util/math';
+import { sum, rotatePointAroundPoint, euklidianDistance2D } from '../../src/util/math';
 
-describe("math", () => {
+describe("math.sum", () => {
     it('calculates the sum right', () => {
         expect(sum([1,2,3])).toBe(6);
         expect(sum([])).toBe(0);
     });
+});
 
+
+describe("math.rotatePointAroundPoint", () => {
     it('rotates a point correct', () => {
         expect(rotatePointAroundPoint({x: -1, y: 0}, {x: 0, y: 0}, -Math.PI)).toEqual({x: 1, y: 0});
         expect(rotatePointAroundPoint({x: -1, y: 0}, {x: 0, y: 0}, Math.PI / 2)).toEqual({x: -0, y: -1});
         expect(rotatePointAroundPoint({x: -1, y: 0}, {x: 0, y: 0}, -Math.PI * 1.5)).toEqual({x: 0, y: -1});
     });
+});
 
+describe("math.euklidianDistance2D", () => {
     it('calculates point distance correct', () => {
         expect(euklidianDistance2D({x: 0, y: 0}, {x: 0, y: 0})).toBe(0);
         expect(euklidianDistance2D({x: 1, y: 0}, {x: 0, y: 0})).toBe(1);
