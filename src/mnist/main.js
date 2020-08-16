@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
 import { indexOfMax } from '../util/util';
+import Draw from './draw';
 
 async function loadModel() {
     const model = await tf.loadLayersModel('models/mnist/model.json');
@@ -17,7 +18,7 @@ async function predict(model, inputTensor) {
 }
 
 async function main() {
-    const model = await loadModel();
+   /*  const model = await loadModel();
     
     const input = tf.tensor([
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -52,7 +53,12 @@ async function main() {
 
     const predicition = await predict(model, input);
 
-    console.log('predicted', predicition);
+    console.log('predicted', predicition); */
+
+
+    const root = document.getElementById('root');
+
+    const draw = new Draw(root, 256, 256);
 }
 
 main().then(() => console.log("finished"));
