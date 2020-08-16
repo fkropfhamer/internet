@@ -18,7 +18,7 @@ async function predict(model, inputTensor) {
 }
 
 async function main() {
-   /*  const model = await loadModel();
+    const model = await loadModel();
     
     const input = tf.tensor([
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -51,14 +51,23 @@ async function main() {
         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
     ]);
 
-    const predicition = await predict(model, input);
-
-    console.log('predicted', predicition); */
-
-
     const root = document.getElementById('root');
 
     const draw = new Draw(root, 256, 256);
+
+    const resetButton = document.getElementById('reset');
+    const predictButton = document.getElementById('predict');
+
+    resetButton.onclick = () => draw.reset();
+    predictButton.onclick = async () => {
+        const pixelArray = draw.getGreyScalePixelArray();
+
+        console.log(pixelArray);
+
+       /*  const predicition = await predict(model, input);
+
+        console.log('predicted', predicition); */
+    }
 }
 
 main().then(() => console.log("finished"));

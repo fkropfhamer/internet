@@ -4,21 +4,31 @@ export default class Draw {
      * @param {HTMLElement} element 
      * @param {number} width 
      * @param {number} height 
+     * @param {string} backgroundColor
+     * @param {string | CanvasGradient | CanvasPattern} strokeColor
+     * @param {number} strokeWeight
      */
-    constructor(element, width, height) {
+    constructor(element, width, height, backgroundColor = 'cyan', strokeColor = 'black', strokeWeight = 5) {
         this.canvas = document.createElement('canvas');
         this.canvas.width = width;
         this.canvas.height = height;
-        this.canvas.style.backgroundColor = 'cyan'
+        this.canvas.style.backgroundColor = backgroundColor;
 
         element.appendChild(this.canvas);
 
         this.ctx = this.canvas.getContext("2d");
+        this.ctx.strokeStyle = strokeColor;
+        this.ctx.lineWidth = strokeWeight;
+
         this.drawing = [[]];
 
         this.height = height;
         this.width = width;
 
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
         this.canvas.addEventListener("mousemove", (event) => {
             const x = event.offsetX;
             const y = event.offsetY;
@@ -38,6 +48,20 @@ export default class Draw {
             }
             this.mouseIsDown = false;
         })
+    }
+
+    getPixelArray() {
+        const imageData = this.ctx.getImageData(0, 0, this.width, this.height);
+        const pixels = imageData.data;
+    
+        return pixels;
+    }
+
+    getGreyScalePixelArray() {
+        const pixels = this.getPixelArray();
+        const greyScalePixels  = pixels.filter((_, i) => (i + 1) % 4 === 0);
+        
+        return greyScalePixels;
     }
 
     reset() {
@@ -60,7 +84,7 @@ export default class Draw {
         if (points.length < 6) {
             const b = points[0];
             this.ctx.beginPath();
-            this.ctx.arc(b.x, b.y, this.ctx.lineWidth / 2, 0, Math.PI * 2, !0);
+            this.ctx.arc(b.x, b.y, this.ctx.lineWidth / 2, 0, Math.PI * 2, true);
             this.ctx.closePath(); 
             this.ctx.fill();
             return
