@@ -1,5 +1,5 @@
 import { chunkArray } from '../util/util';
-import Draw from './draw';
+import Draw from 'draw-on-canvas';
 
 export function normalize(ctx) {
     const boundBox = getMinBoundBox(ctx);

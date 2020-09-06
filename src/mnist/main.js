@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import { indexOfMax } from '../util/util';
 import { normalize } from './normalize';
-import Draw from './draw';
+import Draw from 'draw-on-canvas';
 
 async function loadModel() {
     const model = await tf.loadLayersModel('models/mnist/model.json');
